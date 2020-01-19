@@ -13,8 +13,11 @@ class App extends React.Component {
     this.selectTempOnClick = this.selectTempOnClick.bind(this);
     this.escFunction = this.escFunction.bind(this);
 
+    this.textInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
+
     this.state = {
-      shouldShowCity: false,
+      shouldShowCity: true,
       shouldShowTemp: false,
       citiesId: [],
       cities: [],
@@ -74,11 +77,15 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount(e) {
     document.addEventListener("keydown", this.escFunction);
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction);
+  }
+
+  focusTextInput() {
+    this.textInput.current.focus();
   }
 
   render() {
@@ -89,9 +96,14 @@ class App extends React.Component {
           header={"Города РФ:"}
           change={this.selectCityOnClick}
           values={this.state.cities}
+          onClick={this.focusTextInput}
         />
         {this.state.shouldShowCity && (
-          <Item select={this.selectCityOnClick} name={"title"} />
+          <Item
+            select={this.selectCityOnClick}
+            name={"title"}
+            act={this.textInput}
+          />
         )}
 
         <Input
@@ -107,4 +119,5 @@ class App extends React.Component {
     );
   }
 }
+
 export { App };

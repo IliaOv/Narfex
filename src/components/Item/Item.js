@@ -7,10 +7,12 @@ class Item extends React.PureComponent {
     return (
       <div className="list">
         {rus.map((item, index) => (
-          <label
+          <div
             key={Math.random()}
             className="list__container"
             htmlFor={index}
+            tabIndex={0}
+            ref={this.props.act}
           >
             <input
               key={Math.random()}
@@ -21,7 +23,7 @@ class Item extends React.PureComponent {
             />
             <span className="list__checkmark"></span>
             {item[this.props.name]}
-          </label>
+          </div>
         ))}
       </div>
     );
