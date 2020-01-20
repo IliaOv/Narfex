@@ -1,17 +1,8 @@
 # DropDown
 [Ссылка на приложение](https://iliaov.github.io/Narfex/build)
 
-Stack: React, Flexbox, SCSS, bem-naming
-
-Run
+# Техническое задание для React:
 ```
-yarn install
-yarn start
-```
-
-based on React Create App Node v12.14.1
-```
-Техническое задание для React:
 Необходимо реализовать DropDown с мультиселектом и поиском.
 1. Задание нужно выполнить с помощью ReactJS;
 2. Без использования сторонних библиотек;
@@ -22,3 +13,11 @@ based on React Create App Node v12.14.1
 3.4. Должна быть возможность добавить несколько DropDown на странице;
 4. Дизайн значения не имеет.
 ```
+
+Run
+```
+yarn install
+yarn start
+```
+
+based on React Create App Node v12.14.1
