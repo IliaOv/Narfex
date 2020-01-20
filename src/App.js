@@ -23,13 +23,11 @@ class App extends React.Component {
     this.state = {
       shouldShowCity: false,
       shouldShowTemp: false,
-      citiesId: [],
       cities: [],
-      tempId: [],
       temp: [],
       cityValue: "",
       tempValue: "",
-      index: 0
+      index: -1
     };
   }
 
@@ -46,13 +44,8 @@ class App extends React.Component {
   }
 
   selectCityOnClick(e) {
-    let id = parseInt(e.target.parentNode.getAttribute("for"), 10);
     let city = e.target.textContent;
     this.setState({
-      citiesId:
-        this.state.citiesId.indexOf(id) === -1
-          ? [...this.state.citiesId, id]
-          : this.state.citiesId.filter(i => i !== id),
       cities:
         this.state.cities.indexOf(city) === -1
           ? [...this.state.cities, city]
@@ -62,13 +55,8 @@ class App extends React.Component {
   }
 
   selectTempOnClick(e) {
-    let id = parseInt(e.target.parentNode.getAttribute("for"), 10);
     let temp = e.target.textContent;
     this.setState({
-      tempId:
-        this.state.tempId.indexOf(id) === -1
-          ? [...this.state.tempId, id]
-          : this.state.tempId.filter(i => i !== id),
       temp:
         this.state.temp.indexOf(temp) === -1
           ? [...this.state.temp, temp]
@@ -80,17 +68,32 @@ class App extends React.Component {
   filterCity(e) {
     this.setState({
       cityValue: e.target.value,
-      index: rus.findIndex(
-        item =>
-          item.title ===
-          document.getElementsByClassName("list__container")[0].textContent
-      )
+      index:
+        typeof document.getElementsByClassName("list__container")[0] !==
+        "undefined"
+          ? rus.findIndex(
+              item =>
+                item.title ===
+                document.getElementsByClassName("list__container")[0]
+                  .textContent
+            )
+          : 0
     });
   }
 
   filterTemp(e) {
     this.setState({
-      tempValue: e.target.value
+      tempValue: e.target.value,
+      index:
+        typeof document.getElementsByClassName("list__container")[0] !==
+        "undefined"
+          ? rus.findIndex(
+              item =>
+                item.title ===
+                document.getElementsByClassName("list__container")[0]
+                  .textContent
+            )
+          : 0
     });
   }
 
@@ -101,6 +104,7 @@ class App extends React.Component {
       cities: this.state.cities.filter(i => i !== cityValue)
     });
   }
+
   delTemp(e) {
     let tempValue = e.target.parentNode.textContent;
 
@@ -122,26 +126,35 @@ class App extends React.Component {
       (this.state.shouldShowCity || this.state.shouldShowTemp) &&
       event.keyCode === 40
     ) {
+      event.preventDefault();
       this.setState({
         index: this.state.index + 1
       });
-      this.textInput.current.focus();
+
+      try {
+        this.textInput.current.focus();
+      } catch (e) {}
     }
 
     if (
       (this.state.shouldShowCity || this.state.shouldShowTemp) &&
       event.keyCode === 38
     ) {
+      event.preventDefault();
       this.setState({
-        index: this.state.index > 0 ? this.state.index - 1 : this.state.index
+        index: this.state.index > 0 ? this.state.index - 1 : 0
       });
-      this.textInput.current.focus();
+
+      try {
+        this.textInput.current.focus();
+      } catch (e) {}
     }
 
     if (
       this.state.shouldShowCity &&
       (event.keyCode === 32 || event.keyCode === 13)
     ) {
+      event.preventDefault();
       let city = rus[this.state.index]["title"];
       this.setState({
         cities:
@@ -149,13 +162,16 @@ class App extends React.Component {
             ? [...this.state.cities, city]
             : this.state.cities.filter(i => i !== city)
       });
-      this.textInput.current.focus();
+      try {
+        this.textInput.current.focus();
+      } catch (e) {}
     }
 
     if (
       this.state.shouldShowTemp &&
       (event.keyCode === 32 || event.keyCode === 13)
     ) {
+      event.preventDefault();
       let temp = rus[this.state.index]["temp"];
       this.setState({
         temp:
@@ -163,7 +179,9 @@ class App extends React.Component {
             ? [...this.state.temp, temp]
             : this.state.temp.filter(i => i !== temp)
       });
-      this.textInput.current.focus();
+      try {
+        this.textInput.current.focus();
+      } catch (e) {}
     }
   }
 
@@ -211,6 +229,7 @@ class App extends React.Component {
             name={"temp"}
             chars={this.state.tempValue}
             refer={this.textInput}
+            id={this.state.index}
           />
         )}
       </main>

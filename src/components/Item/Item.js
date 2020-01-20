@@ -13,7 +13,7 @@ class Item extends React.PureComponent {
             <li
               key={Math.random()}
               className="list__container"
-              //htmlFor={index}
+              htmlFor={index}
               tabIndex={-1}
               onClick={this.props.select}
               ref={index === this.props.id ? this.props.refer : ""}
