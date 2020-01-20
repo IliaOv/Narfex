@@ -12,14 +12,20 @@ class App extends React.Component {
     this.selectCityOnClick = this.selectCityOnClick.bind(this);
     this.selectTempOnClick = this.selectTempOnClick.bind(this);
     this.escFunction = this.escFunction.bind(this);
+    this.filterCity = this.filterCity.bind(this);
+    this.filterTemp = this.filterTemp.bind(this);
+    this.delCity = this.delCity.bind(this);
+    this.delTemp = this.delTemp.bind(this);
 
     this.state = {
-      shouldShowCity: true,
+      shouldShowCity: false,
       shouldShowTemp: false,
       citiesId: [],
       cities: [],
       tempId: [],
-      temp: []
+      temp: [],
+      cityValue: "",
+      tempValue: ""
     };
   }
 
@@ -46,13 +52,14 @@ class App extends React.Component {
       cities:
         this.state.cities.indexOf(city) === -1
           ? [...this.state.cities, city]
-          : this.state.cities.filter(i => i !== city)
+          : this.state.cities.filter(i => i !== city),
+      cityValue: ""
     });
   }
 
   selectTempOnClick(e) {
     let id = parseInt(e.target.parentNode.getAttribute("for"), 10);
-    let temp = e.target.parentNode.textContent;
+    let temp = e.target.textContent;
     this.setState({
       tempId:
         this.state.tempId.indexOf(id) === -1
@@ -61,7 +68,35 @@ class App extends React.Component {
       temp:
         this.state.temp.indexOf(temp) === -1
           ? [...this.state.temp, temp]
-          : this.state.temp.filter(i => i !== temp)
+          : this.state.temp.filter(i => i !== temp),
+      tempValue: ""
+    });
+  }
+
+  filterCity(e) {
+    this.setState({
+      cityValue: e.target.value
+    });
+  }
+
+  filterTemp(e) {
+    this.setState({
+      tempValue: e.target.value
+    });
+  }
+
+  delCity(e) {
+    let cityValue = e.target.parentNode.textContent;
+
+    this.setState({
+      cities: this.state.cities.filter(i => i !== cityValue)
+    });
+  }
+  delTemp(e) {
+    let tempValue = e.target.parentNode.textContent;
+
+    this.setState({
+      temp: this.state.temp.filter(i => i !== tempValue)
     });
   }
 
@@ -87,21 +122,33 @@ class App extends React.Component {
         <Input
           show={this.showCityOnClick}
           header={"Города РФ:"}
-          change={this.selectCityOnClick}
+          change={this.filterCity}
           values={this.state.cities}
+          text={this.state.cityValue}
+          close={this.delCity}
         />
         {this.state.shouldShowCity && (
-          <Item select={this.selectCityOnClick} name={"title"} />
+          <Item
+            select={this.selectCityOnClick}
+            name={"title"}
+            chars={this.state.cityValue}
+          />
         )}
 
         <Input
           show={this.showTempOnClick}
           header={"Числа:"}
-          change={this.selectTempOnClick}
+          change={this.filterTemp}
           values={this.state.temp}
+          text={this.state.tempValue}
+          close={this.delTemp}
         />
         {this.state.shouldShowTemp && (
-          <Item select={this.selectTempOnClick} name={"temp"} />
+          <Item
+            select={this.selectTempOnClick}
+            name={"temp"}
+            chars={this.state.tempValue}
+          />
         )}
       </main>
     );

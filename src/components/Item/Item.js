@@ -6,26 +6,24 @@ class Item extends React.PureComponent {
   render() {
     return (
       <ul className="list">
-        {rus.map((item, index) => (
-          <li
-            key={Math.random()}
-            className="list__container"
-            //htmlFor={index}
-            tabIndex={0}
-            onClick={this.props.select}
-          >
-            {/*
-            <input
+        {rus.map((item, index) =>
+          item[this.props.name]
+            .toLowerCase()
+            .indexOf(this.props.chars.toLowerCase()) !== -1 ? (
+            <li
               key={Math.random()}
-              className="list__checkbox"
-              type="checkbox"
-              id={index}
+              className="list__container"
+              //htmlFor={index}
+              tabIndex={0}
               onClick={this.props.select}
-            />
-            <span className="list__checkmark"></span>*/}
-            {item[this.props.name]}
-          </li>
-        ))}
+            >
+              {/* <input key={Math.random()} className="list__checkbox" type="checkbox" id={index} onClick={this.props.select} /> <span className="list__checkmark"></span> */}
+              {item[this.props.name]}
+            </li>
+          ) : (
+            ""
+          )
+        )}
       </ul>
     );
   }

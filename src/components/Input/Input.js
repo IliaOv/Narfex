@@ -6,7 +6,8 @@ class Input extends React.Component {
     let Block = this.props.values.map((item, index) => {
       return (
         <span className={"search__item"} key={index}>
-          {item}
+          <span>{item}</span>
+          <span className={"search__close"} onClick={this.props.close}></span>
         </span>
       );
     });
@@ -20,6 +21,7 @@ class Input extends React.Component {
             type="text"
             onClick={this.props.show}
             onChange={this.props.change}
+            value={this.props.text}
           />
         </div>
       </form>
