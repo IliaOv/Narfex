@@ -5,15 +5,16 @@ import rus from "../../static/rus";
 class Item extends React.PureComponent {
   render() {
     return (
-      <div className="list">
+      <ul className="list">
         {rus.map((item, index) => (
-          <div
+          <li
             key={Math.random()}
             className="list__container"
-            htmlFor={index}
+            //htmlFor={index}
             tabIndex={0}
-            ref={this.props.act}
+            onClick={this.props.select}
           >
+            {/*
             <input
               key={Math.random()}
               className="list__checkbox"
@@ -21,11 +22,11 @@ class Item extends React.PureComponent {
               id={index}
               onClick={this.props.select}
             />
-            <span className="list__checkmark"></span>
+            <span className="list__checkmark"></span>*/}
             {item[this.props.name]}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     );
   }
 }

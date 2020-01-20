@@ -13,9 +13,6 @@ class App extends React.Component {
     this.selectTempOnClick = this.selectTempOnClick.bind(this);
     this.escFunction = this.escFunction.bind(this);
 
-    this.textInput = React.createRef();
-    this.focusTextInput = this.focusTextInput.bind(this);
-
     this.state = {
       shouldShowCity: true,
       shouldShowTemp: false,
@@ -40,7 +37,7 @@ class App extends React.Component {
 
   selectCityOnClick(e) {
     let id = parseInt(e.target.parentNode.getAttribute("for"), 10);
-    let city = e.target.parentNode.textContent;
+    let city = e.target.textContent;
     this.setState({
       citiesId:
         this.state.citiesId.indexOf(id) === -1
@@ -77,15 +74,11 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount(e) {
+  componentDidMount() {
     document.addEventListener("keydown", this.escFunction);
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction);
-  }
-
-  focusTextInput() {
-    this.textInput.current.focus();
   }
 
   render() {
@@ -96,14 +89,9 @@ class App extends React.Component {
           header={"Города РФ:"}
           change={this.selectCityOnClick}
           values={this.state.cities}
-          onClick={this.focusTextInput}
         />
         {this.state.shouldShowCity && (
-          <Item
-            select={this.selectCityOnClick}
-            name={"title"}
-            act={this.textInput}
-          />
+          <Item select={this.selectCityOnClick} name={"title"} />
         )}
 
         <Input

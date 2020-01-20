@@ -1,5 +1,6 @@
 .search {
   margin: 5rem 0 0 0;
+  width: 25rem;
 
   &__header {
     margin: 1rem;
@@ -7,12 +8,28 @@
     font-size: 1.5rem;
   }
 
-  &__field {
-    width: 25rem;
-    height: 2.5rem;
+  &__area {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
     margin-top: 0.5rem;
     border: 0.0625rem solid grey;
     font-family: "Consolas", monospace;
   }
 
+  &__item {
+    margin: 0.2rem;
+    padding: 0.3rem;
+    background-color: aliceblue;
+  }
+
+  &__field {
+    margin: 0.2rem;
+    padding: 0.3rem;
+    border: 1px solid black;
+    width: 5rem;
+  }
 }
