@@ -14,8 +14,9 @@ class Item extends React.PureComponent {
               key={Math.random()}
               className="list__container"
               //htmlFor={index}
-              tabIndex={0}
+              tabIndex={-1}
               onClick={this.props.select}
+              ref={index === this.props.id ? this.props.refer : ""}
             >
               {/* <input key={Math.random()} className="list__checkbox" type="checkbox" id={index} onClick={this.props.select} /> <span className="list__checkmark"></span> */}
               {item[this.props.name]}

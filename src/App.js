@@ -1,11 +1,14 @@
 import React from "react";
 import { Input } from "./components/Input/Input";
 import { Item } from "./components/Item/Item";
+import rus from "./static/rus";
 import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.textInput = React.createRef();
 
     this.showCityOnClick = this.showCityOnClick.bind(this);
     this.showTempOnClick = this.showTempOnClick.bind(this);
@@ -25,7 +28,8 @@ class App extends React.Component {
       tempId: [],
       temp: [],
       cityValue: "",
-      tempValue: ""
+      tempValue: "",
+      index: 0
     };
   }
 
@@ -75,7 +79,12 @@ class App extends React.Component {
 
   filterCity(e) {
     this.setState({
-      cityValue: e.target.value
+      cityValue: e.target.value,
+      index: rus.findIndex(
+        item =>
+          item.title ===
+          document.getElementsByClassName("list__container")[0].textContent
+      )
     });
   }
 
@@ -104,14 +113,64 @@ class App extends React.Component {
     if (event.keyCode === 27) {
       this.setState({
         shouldShowCity: false,
-        shouldShowTemp: false
+        shouldShowTemp: false,
+        index: 0
       });
+    }
+
+    if (
+      (this.state.shouldShowCity || this.state.shouldShowTemp) &&
+      event.keyCode === 40
+    ) {
+      this.setState({
+        index: this.state.index + 1
+      });
+      this.textInput.current.focus();
+    }
+
+    if (
+      (this.state.shouldShowCity || this.state.shouldShowTemp) &&
+      event.keyCode === 38
+    ) {
+      this.setState({
+        index: this.state.index > 0 ? this.state.index - 1 : this.state.index
+      });
+      this.textInput.current.focus();
+    }
+
+    if (
+      this.state.shouldShowCity &&
+      (event.keyCode === 32 || event.keyCode === 13)
+    ) {
+      let city = rus[this.state.index]["title"];
+      this.setState({
+        cities:
+          this.state.cities.indexOf(city) === -1
+            ? [...this.state.cities, city]
+            : this.state.cities.filter(i => i !== city)
+      });
+      this.textInput.current.focus();
+    }
+
+    if (
+      this.state.shouldShowTemp &&
+      (event.keyCode === 32 || event.keyCode === 13)
+    ) {
+      let temp = rus[this.state.index]["temp"];
+      this.setState({
+        temp:
+          this.state.temp.indexOf(temp) === -1
+            ? [...this.state.temp, temp]
+            : this.state.temp.filter(i => i !== temp)
+      });
+      this.textInput.current.focus();
     }
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction);
   }
+
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction);
   }
@@ -132,6 +191,8 @@ class App extends React.Component {
             select={this.selectCityOnClick}
             name={"title"}
             chars={this.state.cityValue}
+            refer={this.textInput}
+            id={this.state.index}
           />
         )}
 
@@ -143,11 +204,13 @@ class App extends React.Component {
           text={this.state.tempValue}
           close={this.delTemp}
         />
+
         {this.state.shouldShowTemp && (
           <Item
             select={this.selectTempOnClick}
             name={"temp"}
             chars={this.state.tempValue}
+            refer={this.textInput}
           />
         )}
       </main>
