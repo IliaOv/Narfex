@@ -1,30 +1,38 @@
 .search {
   margin: 5rem 0 0 0;
-  width: 25rem;
+  width: 20rem;
 
   &__header {
     margin: 1rem;
-    color: #000;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
 
   &__area {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
 
     margin-top: 0.5rem;
-    border: 0.0625rem solid grey;
-    font-family: "Consolas", monospace;
+    border: 0.025rem solid #c0c0c0;
+    border-radius: 0.5rem;
+
+    &:hover,
+    &:focus {
+      border-color: #40a9ff;
+    }
   }
 
   &__item {
     margin: 0.2rem;
     padding: 0.3rem;
-    background-color: aliceblue;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 0.125rem;
     display: flex;
+    font-size: 0.7rem;
   }
 
   &__field {
@@ -37,28 +45,16 @@
     font-family: "Consolas", monospace;
   }
   &__close {
-    margin-left: 0.5rem;
+    margin-left: 0.1rem;
     opacity: 0.3;
     cursor: pointer;
-    display: block;
-    height: 1rem;
-    width: 1rem;
   }
   &__close:hover {
     opacity: 1;
   }
-  &__close:before,
-  &__close:after {
-    position: absolute;
-    content: " ";
-    height: 0.8rem;
-    width: 0.125rem;
-    background-color: #333;
-  }
-  &__close:before {
-    transform: rotate(45deg);
-  }
-  &__close:after {
-    transform: rotate(-45deg);
+  &__closeitem {
+    text-align: center;
+    text-transform: none;
+    vertical-align: -0.125em;
   }
 }

@@ -12,14 +12,13 @@ class Item extends React.PureComponent {
             .indexOf(this.props.chars.toLowerCase()) !== -1 ? (
             <li
               key={Math.random()}
-              className="list__container"
+              className="list__item"
               htmlFor={index}
               tabIndex={-1}
               onClick={this.props.select}
               ref={index === this.props.id ? this.props.refer : ""}
             >
-              {/* <input key={Math.random()} className="list__checkbox" type="checkbox" id={index} onClick={this.props.select} /> <span className="list__checkmark"></span> */}
-              {item[this.props.name]}
+              <span className="list__text">{item[this.props.name]}</span>
             </li>
           ) : (
             ""

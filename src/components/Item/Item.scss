@@ -3,22 +3,29 @@
   flex-direction: column;
   position: absolute;
   background-color: #fff;
-  width: 23.86rem;
+  width: 19.86rem;
   height: 10rem;
-  border: 0.0625rem solid grey;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
   border-top: none;
   overflow: auto;
   margin: 0;
-  padding-left: 1rem;
+  padding: 0;
   z-index: 10;
 
-  &__container {
+  &__item {
     display: flex;
     align-items: center;
     padding: 0.2rem;
-    font-size: 1rem;
+    font-size: 0.7rem;
     line-height: 1.25rem;
     cursor: pointer;
-    color: #4a4a4a;
+
+    &:hover {
+      background-color: #e6f7ff;
+    }
+  }
+  &__text {
+    padding-left: 1rem;
   }
 }

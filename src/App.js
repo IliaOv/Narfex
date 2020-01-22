@@ -98,15 +98,14 @@ class App extends React.Component {
   }
 
   delCity(e) {
-    let cityValue = e.target.parentNode.textContent;
-
+    let cityValue = e.target.parentNode.parentNode.textContent;
     this.setState({
       cities: this.state.cities.filter(i => i !== cityValue)
     });
   }
 
   delTemp(e) {
-    let tempValue = e.target.parentNode.textContent;
+    let tempValue = e.target.parentNode.parentNode.textContent;
 
     this.setState({
       temp: this.state.temp.filter(i => i !== tempValue)
