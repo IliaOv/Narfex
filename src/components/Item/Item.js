@@ -2,7 +2,7 @@ import React from "react";
 import "./Item.scss";
 import rus from "../../static/rus";
 
-class Item extends React.PureComponent {
+class Item extends React.Component {
   render() {
     return (
       <ul className="list">

@@ -10,16 +10,6 @@ class App extends React.Component {
 
     this.textInput = React.createRef();
 
-    this.showCityOnClick = this.showCityOnClick.bind(this);
-    this.showTempOnClick = this.showTempOnClick.bind(this);
-    this.selectCityOnClick = this.selectCityOnClick.bind(this);
-    this.selectTempOnClick = this.selectTempOnClick.bind(this);
-    this.escFunction = this.escFunction.bind(this);
-    this.filterCity = this.filterCity.bind(this);
-    this.filterTemp = this.filterTemp.bind(this);
-    this.delCity = this.delCity.bind(this);
-    this.delTemp = this.delTemp.bind(this);
-
     this.state = {
       shouldShowCity: false,
       shouldShowTemp: false,
@@ -31,19 +21,19 @@ class App extends React.Component {
     };
   }
 
-  showCityOnClick() {
+  showCityOnClick = () => {
     this.setState({
       shouldShowCity: true
     });
-  }
+  };
 
-  showTempOnClick() {
+  showTempOnClick = () => {
     this.setState({
       shouldShowTemp: true
     });
-  }
+  };
 
-  selectCityOnClick(e) {
+  selectCityOnClick = e => {
     let city = e.target.textContent;
     this.setState({
       cities:
@@ -52,9 +42,9 @@ class App extends React.Component {
           : this.state.cities.filter(i => i !== city),
       cityValue: ""
     });
-  }
+  };
 
-  selectTempOnClick(e) {
+  selectTempOnClick = e => {
     let temp = e.target.textContent;
     this.setState({
       temp:
@@ -63,61 +53,40 @@ class App extends React.Component {
           : this.state.temp.filter(i => i !== temp),
       tempValue: ""
     });
-  }
+  };
 
-  filterCity(e) {
+  filterCity = e => {
     this.setState({
-      cityValue: e.target.value,
-      index:
-        typeof document.getElementsByClassName("list__container")[0] !==
-        "undefined"
-          ? rus.findIndex(
-              item =>
-                item.title ===
-                document.getElementsByClassName("list__container")[0]
-                  .textContent
-            )
-          : 0
+      cityValue: e.target.value
     });
-  }
+  };
 
-  filterTemp(e) {
+  filterTemp = e => {
     this.setState({
-      tempValue: e.target.value,
-      index:
-        typeof document.getElementsByClassName("list__container")[0] !==
-        "undefined"
-          ? rus.findIndex(
-              item =>
-                item.title ===
-                document.getElementsByClassName("list__container")[0]
-                  .textContent
-            )
-          : 0
+      tempValue: e.target.value
     });
-  }
+  };
 
-  delCity(e) {
+  delCity = e => {
     let cityValue = e.target.parentNode.parentNode.textContent;
     this.setState({
       cities: this.state.cities.filter(i => i !== cityValue)
     });
-  }
+  };
 
-  delTemp(e) {
+  delTemp = e => {
     let tempValue = e.target.parentNode.parentNode.textContent;
-
     this.setState({
       temp: this.state.temp.filter(i => i !== tempValue)
     });
-  }
+  };
 
-  escFunction(event) {
+  escFunction = event => {
     if (event.keyCode === 27) {
       this.setState({
         shouldShowCity: false,
         shouldShowTemp: false,
-        index: 0
+        index: -1
       });
     }
 
@@ -182,19 +151,39 @@ class App extends React.Component {
         this.textInput.current.focus();
       } catch (e) {}
     }
-  }
+  };
+  handleClick = e => {
+    if (
+      "list" !== e.target.getAttribute("class") &&
+      "list__item" !== e.target.getAttribute("class") &&
+      "list__text" !== e.target.getAttribute("class") &&
+      "search__field" !== e.target.getAttribute("class") &&
+      "search__item" !== e.target.getAttribute("class") &&
+      "search__close" !== e.target.getAttribute("class") &&
+      "search__cross" !== e.target.getAttribute("class") &&
+      "search__text" !== e.target.getAttribute("class")
+    ) {
+      this.setState({
+        shouldShowCity: false,
+        shouldShowTemp: false,
+        index: -1
+      });
+    }
+  };
 
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction);
+    document.addEventListener("mousedown", this.handleClick);
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction);
+    document.removeEventListener("mousedown", this.handleClick);
   }
 
   render() {
     return (
-      <main>
+      <main className="page__main">
         <Input
           show={this.showCityOnClick}
           header={"Города РФ:"}

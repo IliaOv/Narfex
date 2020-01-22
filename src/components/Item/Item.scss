@@ -20,8 +20,10 @@
     font-size: 0.7rem;
     line-height: 1.25rem;
     cursor: pointer;
+    outline: 0;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: #e6f7ff;
     }
   }

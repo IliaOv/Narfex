@@ -5,11 +5,11 @@ const Input = ({ values, close, header, show, change, text }) => {
   const Block = values.map((item, index) => {
     return (
       <span className="search__item" key={index}>
-        <span>{item}</span>
+        <span className="search__text">{item}</span>
         <span className="search__close">
           <svg
             viewBox="64 64 896 896"
-            className={'search__closeitem'}
+            className={"search__cross"}
             focusable="false"
             data-icon="close"
             width="0.9em"

@@ -39,7 +39,7 @@
     margin: 0.2rem;
     padding: 0.3rem;
     border: none;
-    outline: none;
+    outline: 0;
     width: 2rem;
     flex-grow: 3;
     font-family: "Consolas", monospace;
@@ -52,7 +52,7 @@
   &__close:hover {
     opacity: 1;
   }
-  &__closeitem {
+  &__cross {
     text-align: center;
     text-transform: none;
     vertical-align: -0.125em;
