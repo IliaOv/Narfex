@@ -6,24 +6,25 @@ class Item extends React.Component {
   render() {
     return (
       <ul className="list">
-        {rus.map((item, index) =>
-          item[this.props.name]
-            .toLowerCase()
-            .indexOf(this.props.chars.toLowerCase()) !== -1 ? (
+        {rus
+          .filter(
+            (it, ind) =>
+              it[this.props.name]
+                .toLowerCase()
+                .indexOf(this.props.chars.toLowerCase()) !== -1 &&
+              this.props.elements.indexOf(it[this.props.name]) === -1
+          )
+          .map((item, index) => (
             <li
-              key={Math.random()}
+              key={index}
               className="list__item"
-              htmlFor={index}
               tabIndex={-1}
               onClick={this.props.select}
               ref={index === this.props.id ? this.props.refer : ""}
             >
               <span className="list__text">{item[this.props.name]}</span>
             </li>
-          ) : (
-            ""
-          )
-        )}
+          ))}
       </ul>
     );
   }

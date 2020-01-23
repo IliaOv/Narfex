@@ -40,7 +40,8 @@ class App extends React.Component {
         this.state.cities.indexOf(city) === -1
           ? [...this.state.cities, city]
           : this.state.cities.filter(i => i !== city),
-      cityValue: ""
+      cityValue: "",
+      index: -1
     });
   };
 
@@ -51,7 +52,8 @@ class App extends React.Component {
         this.state.temp.indexOf(temp) === -1
           ? [...this.state.temp, temp]
           : this.state.temp.filter(i => i !== temp),
-      tempValue: ""
+      tempValue: "",
+      index: -1
     });
   };
 
@@ -123,12 +125,32 @@ class App extends React.Component {
       (event.keyCode === 32 || event.keyCode === 13)
     ) {
       event.preventDefault();
-      let city = rus[this.state.index]["title"];
+
+      console.log(
+        rus.filter(
+          (it, ind) =>
+            it["title"]
+              .toLowerCase()
+              .indexOf(this.state.cityValue.toLowerCase()) !== -1 &&
+            this.state.cities.indexOf(it["title"]) === -1
+        )[this.state.index]["title"]
+      );
+
+      let city = rus.filter(
+        (it, ind) =>
+          it["title"]
+            .toLowerCase()
+            .indexOf(this.state.cityValue.toLowerCase()) !== -1 &&
+          this.state.cities.indexOf(it["title"]) === -1
+      )[this.state.index]["title"];
+
       this.setState({
         cities:
           this.state.cities.indexOf(city) === -1
             ? [...this.state.cities, city]
-            : this.state.cities.filter(i => i !== city)
+            : this.state.cities.filter(i => i !== city),
+        cityValue: "",
+        tempValue: ""
       });
       try {
         this.textInput.current.focus();
@@ -140,12 +162,21 @@ class App extends React.Component {
       (event.keyCode === 32 || event.keyCode === 13)
     ) {
       event.preventDefault();
-      let temp = rus[this.state.index]["temp"];
+      let temp = rus.filter(
+        (it, ind) =>
+          it["temp"]
+            .toLowerCase()
+            .indexOf(this.state.tempValue.toLowerCase()) !== -1 &&
+          this.state.temp.indexOf(it["temp"]) === -1
+      )[this.state.index]["temp"];
+
       this.setState({
         temp:
           this.state.temp.indexOf(temp) === -1
             ? [...this.state.temp, temp]
-            : this.state.temp.filter(i => i !== temp)
+            : this.state.temp.filter(i => i !== temp),
+        cityValue: "",
+        tempValue: ""
       });
       try {
         this.textInput.current.focus();
@@ -157,10 +188,11 @@ class App extends React.Component {
       "list" !== e.target.getAttribute("class") &&
       "list__item" !== e.target.getAttribute("class") &&
       "list__text" !== e.target.getAttribute("class") &&
-      "search__field" !== e.target.getAttribute("class") &&
+      //"search__field" !== e.target.getAttribute("class") &&
       "search__item" !== e.target.getAttribute("class") &&
       "search__close" !== e.target.getAttribute("class") &&
       "search__cross" !== e.target.getAttribute("class") &&
+      "search__path" !== e.target.getAttribute("class") &&
       "search__text" !== e.target.getAttribute("class")
     ) {
       this.setState({
@@ -199,6 +231,7 @@ class App extends React.Component {
             chars={this.state.cityValue}
             refer={this.textInput}
             id={this.state.index}
+            elements={this.state.cities}
           />
         )}
 
@@ -218,6 +251,7 @@ class App extends React.Component {
             chars={this.state.tempValue}
             refer={this.textInput}
             id={this.state.index}
+            elements={this.state.temp}
           />
         )}
       </main>
