@@ -23,13 +23,17 @@ class App extends React.Component {
 
   showCityOnClick = () => {
     this.setState({
-      shouldShowCity: true
+      shouldShowCity: true,
+      shouldShowTemp: false,
+      index: -1
     });
   };
 
   showTempOnClick = () => {
     this.setState({
-      shouldShowTemp: true
+      shouldShowTemp: true,
+      shouldShowCity: false,
+      index: -1
     });
   };
 
@@ -126,17 +130,20 @@ class App extends React.Component {
     ) {
       event.preventDefault();
 
-      let city = rus.filter(
-        (it, ind) =>
-          it["title"]
-            .toLowerCase()
-            .indexOf(this.state.cityValue.toLowerCase()) !== -1 &&
-          this.state.cities.indexOf(it["title"]) === -1
-      )[this.state.index]["title"];
+      let city = "";
+      try {
+        city = rus.filter(
+          (it, ind) =>
+            it["title"]
+              .toLowerCase()
+              .indexOf(this.state.cityValue.toLowerCase()) !== -1 &&
+            this.state.cities.indexOf(it["title"]) === -1
+        )[this.state.index]["title"];
+      } catch (e) {}
 
       this.setState({
         cities:
-          this.state.cities.indexOf(city) === -1
+          this.state.cities.indexOf(city) === -1 && city !== ""
             ? [...this.state.cities, city]
             : this.state.cities.filter(i => i !== city),
         cityValue: "",
@@ -152,17 +159,20 @@ class App extends React.Component {
       (event.keyCode === 32 || event.keyCode === 13)
     ) {
       event.preventDefault();
-      let temp = rus.filter(
-        (it, ind) =>
-          it["temp"]
-            .toLowerCase()
-            .indexOf(this.state.tempValue.toLowerCase()) !== -1 &&
-          this.state.temp.indexOf(it["temp"]) === -1
-      )[this.state.index]["temp"];
+      let temp = "";
+      try {
+        temp = rus.filter(
+          (it, ind) =>
+            it["temp"]
+              .toLowerCase()
+              .indexOf(this.state.tempValue.toLowerCase()) !== -1 &&
+            this.state.temp.indexOf(it["temp"]) === -1
+        )[this.state.index]["temp"];
+      } catch (e) {}
 
       this.setState({
         temp:
-          this.state.temp.indexOf(temp) === -1
+          this.state.temp.indexOf(temp) === -1 && temp !== ""
             ? [...this.state.temp, temp]
             : this.state.temp.filter(i => i !== temp),
         cityValue: "",
@@ -179,6 +189,8 @@ class App extends React.Component {
       "list__item" !== e.target.getAttribute("class") &&
       "list__text" !== e.target.getAttribute("class") &&
       "search__item" !== e.target.getAttribute("class") &&
+      "search__field" !== e.target.getAttribute("class") &&
+      "search__area" !== e.target.getAttribute("class") &&
       "search__close" !== e.target.getAttribute("class") &&
       "search__cross" !== e.target.getAttribute("class") &&
       "search__path" !== e.target.getAttribute("class") &&

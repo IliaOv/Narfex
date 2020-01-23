@@ -4,17 +4,18 @@ import rus from "../../static/rus";
 
 class Item extends React.Component {
   render() {
+    let arr = rus.filter(
+      (it, ind) =>
+        it[this.props.name]
+          .toLowerCase()
+          .indexOf(this.props.chars.toLowerCase()) !== -1 &&
+        this.props.elements.indexOf(it[this.props.name]) === -1
+    );
+
     return (
       <ul className="list">
-        {rus
-          .filter(
-            (it, ind) =>
-              it[this.props.name]
-                .toLowerCase()
-                .indexOf(this.props.chars.toLowerCase()) !== -1 &&
-              this.props.elements.indexOf(it[this.props.name]) === -1
-          )
-          .map((item, index) => (
+        {arr.length > 0 ? (
+          arr.map((item, index) => (
             <li
               key={index}
               className="list__item"
@@ -24,7 +25,14 @@ class Item extends React.Component {
             >
               <span className="list__text">{item[this.props.name]}</span>
             </li>
-          ))}
+          ))
+        ) : (
+          <li className="list__item">
+            <span className="list__text">
+              Нет данных, удовлетворяющих условию
+            </span>
+          </li>
+        )}
       </ul>
     );
   }
