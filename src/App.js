@@ -178,7 +178,6 @@ class App extends React.Component {
       "list" !== e.target.getAttribute("class") &&
       "list__item" !== e.target.getAttribute("class") &&
       "list__text" !== e.target.getAttribute("class") &&
-      //"search__field" !== e.target.getAttribute("class") &&
       "search__item" !== e.target.getAttribute("class") &&
       "search__close" !== e.target.getAttribute("class") &&
       "search__cross" !== e.target.getAttribute("class") &&
