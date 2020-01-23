@@ -8,7 +8,7 @@ const Input = ({ values, close, header, show, change, text }) => {
       <span className="search__item" key={index}>
         <span className="search__text">{item}</span>
         <span className="search__close">
-          <img onClick={close} src={cross} alt='Крестик'/>
+          <img className="search__close" onClick={close} src={cross} alt='Крестик'/>
         </span>
       </span>
     );

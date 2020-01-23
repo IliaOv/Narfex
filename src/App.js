@@ -126,16 +126,6 @@ class App extends React.Component {
     ) {
       event.preventDefault();
 
-      console.log(
-        rus.filter(
-          (it, ind) =>
-            it["title"]
-              .toLowerCase()
-              .indexOf(this.state.cityValue.toLowerCase()) !== -1 &&
-            this.state.cities.indexOf(it["title"]) === -1
-        )[this.state.index]["title"]
-      );
-
       let city = rus.filter(
         (it, ind) =>
           it["title"]
